@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import tarefas from "./modules/tarefas";
+import quadro from "./modules/quadro";
 
 export default combineReducers({
-  tarefas,
+  quadro,
 });

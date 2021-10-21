@@ -1,4 +1,4 @@
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 
 import store from "./store";
 
@@ -8,8 +8,6 @@ import GlobalStyle from "./themes/globalStyles";
 import Kanban from './components/Kanban';
 
 const App = () => {
-  //const { tarefas } = useSelector((state) => state.tarefas);
-
   return (
     <Provider store={store}>
       <Reset />

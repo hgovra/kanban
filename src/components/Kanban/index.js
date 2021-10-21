@@ -1,24 +1,20 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
-import { Container, Quadro, Titulo } from "./style";
+import { Container, Quadro, Titulo, ColunaVazia } from "./style";
 
 import Coluna from "../Coluna";
 
 import {
     setColunas
-  } from "../../reducers/modules/tarefas";
+  } from "../../reducers/modules/quadro";
 
-
-
-
-
-const Kanban = (props) => {
+const Kanban = () => {
     const dispatch = useDispatch();
   const { colunas } = useSelector(
-    (state) => state.tarefas
+    (state) => state.quadro
   );
   
   /*useEffect(() => {
@@ -74,9 +70,13 @@ const Kanban = (props) => {
           onDragEnd={(result) => onDragEnd(result, colunas, setColunas)}
         >
           {Object.entries(colunas).map((coluna, index) => {
-             return <Coluna colId={coluna[0]} coluna={coluna[1]} key={`col-${index}`} index={index} tarefas={coluna[1].items}></Coluna>;
+            return <Coluna colId={coluna[0]} coluna={coluna[1]} key={`col-${index}`} index={index} tarefas={coluna[1].items}></Coluna>;
           })}
         </DragDropContext>
+
+        <ColunaVazia>
+          Adicionar outra lista
+        </ColunaVazia>
       </Quadro>
     </Container>
   );

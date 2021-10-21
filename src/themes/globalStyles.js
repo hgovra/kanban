@@ -9,7 +9,8 @@ const GlobalStyle = createGlobalStyle`
     background: #e1e8ed url(${bgImg}) no-repeat 80% 90%;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
+    min-height: 97vh;
   }
 `;
 
