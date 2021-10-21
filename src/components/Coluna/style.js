@@ -1,28 +1,62 @@
 import styled from "styled-components";
 
-const cores = ['#5CC4FF', '#945AD1', '#59D090', '#ee9a39'];
+const cores = ["#5CC4FF", "#945AD1", "#59D090", "#ee9a39"];
 
 export const Container = styled.div`
-    padding: 20px;
-    background-color: ${props => props.cor ? cores[props.cor] : "rgba(0, 0, 0, 0.1)"};
-    border-radius: 5px;
-    border-top: 5px solid rgba(0, 0, 0, 0.1);
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 275px;
+  padding: 20px;
+  background-color: ${(props) =>
+    props.cor ? cores[props.cor] : "rgba(0, 0, 0, 0.1)"};
+  border-radius: 5px;
+  border-top: 5px solid rgba(0, 0, 0, 0.1);
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 275px;
 
-    &:first-of-type {
-      margin-left: 0;
-    }
+  &:first-of-type {
+    margin-left: 0;
+  }
 `;
-
 export const Area = styled.div`
-  min-height: 300px;
+  /*min-height: 300px;*/
 `;
 
 export const Nome = styled.h2`
-    font-size: 18px;
-    font-weight: 800;
-    color: #FFF;
-    margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 20px;
+`;
+
+export const NovaTarefaBtn = styled.span`
+  display: block;
+  color: #FFF;
+  margin-top: 20px;
+  cursor: pointer;
+`;
+
+export const NovaTarefa = styled.div`
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    background: #FFF;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 15px;
+`;
+export const NovoNome = styled.input`
+  padding: 0;
+  background: none;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 0;
+  height: 16px;
+  width: auto;
+
+  &:focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: #CCC;
+  }
 `;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
-import { Container, Quadro, Titulo, ColunaVazia } from "./style";
+import { Container, Quadro, Titulo, ColunaVazia, NovoNome } from "./style";
 
 import Coluna from "../Coluna";
 
@@ -16,6 +16,14 @@ const Kanban = () => {
   const { colunas } = useSelector(
     (state) => state.quadro
   );
+
+  const controlaTeclas = (e) => {
+    if (e.key === "Enter") {
+      console.log(e.target.value);
+
+      e.target.value = "";
+    }
+  };
   
   /*useEffect(() => {
       console.log(colunas);
@@ -75,7 +83,12 @@ const Kanban = () => {
         </DragDropContext>
 
         <ColunaVazia>
-          Adicionar outra lista
+          <NovoNome
+            role="textbox"
+            //value={value}
+            onKeyPress={controlaTeclas}
+            //onChange={handleChange}
+          placeholder="Adicionar outra lista" />
         </ColunaVazia>
       </Quadro>
     </Container>

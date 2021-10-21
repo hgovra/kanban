@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     background: #e1e8ed url(${bgImg}) no-repeat 80% 90%;
     font-family: 'Raleway', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
+    letter-spacing: 0.3px;
     font-size: 14px;
     min-height: 97vh;
   }
