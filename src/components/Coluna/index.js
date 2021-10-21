@@ -1,12 +1,15 @@
 import { Container } from "./style";
 import { Droppable } from "react-beautiful-dnd";
 
+import Tarefa from "../Tarefa";
+
 const Coluna = (coluna, index) => {
+    //console.log('cols',coluna);
     const tarefas = coluna.coluna.items;
 
     return (
         <Container>
-            <Droppable droppableId={coluna.id} key={index}>
+            <Droppable droppableId={coluna.colId} index={index}>
                   {(provided, snapshot) => {
                     return (
                       <div
@@ -22,8 +25,8 @@ const Coluna = (coluna, index) => {
                         }}
                       >
                         {tarefas.map((tarefa, index) => {
-                          return (
-                            <li key={index}></li>
+                           return (
+                            <Tarefa key={tarefa.id} tarefa={tarefa} index={index}></Tarefa>
                           );
                         })}
                         {provided.placeholder}

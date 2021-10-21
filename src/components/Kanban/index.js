@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Container, Quadro, Titulo } from "./style";
@@ -6,31 +6,27 @@ import { Container, Quadro, Titulo } from "./style";
 import Coluna from "../Coluna";
 
 const itemsFromBackend = [
-  { id: "01", content: "First task" },
-  { id: "02", content: "Second task" },
-  { id: "03", content: "Third task" },
-  { id: "04", content: "Fourth task" },
-  { id: "05", content: "Fifth task" },
+  { id: "t01", content: "First task" },
+  { id: "t02", content: "Second task" },
+  { id: "t03", content: "Third task" },
+  { id: "t04", content: "Fourth task" },
+  { id: "t05", content: "Fifth task" },
 ];
 
 const columnsFromBackend = {
   "c01": {
-      id: "001",
     name: "Requested",
     items: itemsFromBackend,
   },
   "c02": {
-    id: "002",
     name: "To do",
     items: [],
   },
   "c03": {
-    id: "003",
     name: "In Progress",
     items: [],
   },
   "c04": {
-    id: "004",
     name: "Done",
     items: [],
   },
@@ -39,12 +35,17 @@ const columnsFromBackend = {
 const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
   const { source, destination } = result;
+  console.log('res',result);
+  
 
   if (source.droppableId !== destination.droppableId) {
     const sourceColumn = columns[source.droppableId];
     const destColumn = columns[destination.droppableId];
+
+    //console.log('sc',columns);
     const sourceItems = [...sourceColumn.items];
     const destItems = [...destColumn.items];
+    
     const [removed] = sourceItems.splice(source.index, 1);
     destItems.splice(destination.index, 0, removed);
     setColumns({
@@ -60,6 +61,8 @@ const onDragEnd = (result, columns, setColumns) => {
     });
   } else {
     const column = columns[source.droppableId];
+
+    console.log('srcI',columns[source.droppableId].items);
     const copiedItems = [...column.items];
     const [removed] = copiedItems.splice(source.index, 1);
     copiedItems.splice(destination.index, 0, removed);
@@ -67,14 +70,21 @@ const onDragEnd = (result, columns, setColumns) => {
       ...columns,
       [source.droppableId]: {
         ...column,
-        items: copiedItems,
-      },
+        items: copiedItems
+      }
     });
+    console.log('src3',columns[source.droppableId].items);
   }
 };
 
+
+
 const Kanban = () => {
   const [columns, setColumns] = useState(columnsFromBackend);
+
+  /*useEffect(() => {
+    setColumns(columns);
+  }, [columns]);*/
 
   return (
     <Container>
@@ -85,8 +95,7 @@ const Kanban = () => {
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
         >
           {Object.entries(columns).map((column, index) => {
-              console.log(column[1]);
-            return <Coluna coluna={column[1]} index={index} tarefas={column[1].items}></Coluna>;
+             return <Coluna colId={column[0]} coluna={column[1]} key={`col-${index}`} index={index} tarefas={column[1].items}></Coluna>;
           })}
         </DragDropContext>
       </Quadro>

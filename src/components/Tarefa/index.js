@@ -2,8 +2,10 @@
 import { Draggable } from "react-beautiful-dnd";
 
 const Tarefa = (tarefa, index) => {
+    //console.log('cc',tarefa);
+    const dados = tarefa.tarefa;
   return (
-    <Draggable key={tarefa.id} draggableId={tarefa.id} index={index}>
+    <Draggable draggableId={dados.id} index={tarefa.index}>
       {(provided, snapshot) => {
         return (
           <div
@@ -20,7 +22,7 @@ const Tarefa = (tarefa, index) => {
               ...provided.draggableProps.style,
             }}
           >
-            {tarefa.content}
+            {tarefa.tarefa.content}
           </div>
         );
       }}
