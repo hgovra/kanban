@@ -78,7 +78,7 @@ const Kanban = () => {
           onDragEnd={(result) => onDragEnd(result, colunas, setColunas)}
         >
           {Object.entries(colunas).map((coluna, index) => {
-            return <Coluna colId={coluna[0]} coluna={coluna[1]} key={`col-${index}`} index={index} tarefas={coluna[1].items}></Coluna>;
+            return <Coluna colId={coluna[0]} coluna={coluna[1]} key={`col-${index}`} index={index}></Coluna>;
           })}
         </DragDropContext>
 
