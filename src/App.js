@@ -1,8 +1,16 @@
+import { Reset } from "styled-reset";
+import GlobalStyle from "./themes/globalStyles";
 
+import Kanban from './components/Kanban'
 
-function App() {
+const App = () => {
   return (
-    <main></main>
+    <>
+      <Reset />
+      <GlobalStyle />
+
+      <Kanban />
+    </>
   );
 }
 
