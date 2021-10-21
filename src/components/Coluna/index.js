@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   Area,
   Container,
+  Mais,
   Nome,
   NovaTarefa,
   NovaTarefaBtn,
@@ -28,15 +29,10 @@ const Coluna = (coluna, index) => {
 
   const controlaClique = () => {
     setNovo(true);
-
-    /*const inputIdent = 'nova-' + coluna.colId;
-    const inputNovoNome = document.getElementById(inputIdent.toString());*/
   };
 
   const controlaTeclas = (e) => {
     if (e.key === "Enter") {
-      //console.log('items',colunas[coluna.colId].items);
-
       const novasTarefas = [...colunas[coluna.colId].items];
       const dadosNovaTarefa = {
         id: uuidv4(),
@@ -56,6 +52,25 @@ const Coluna = (coluna, index) => {
       e.target.value = "";
       setNovo(false);
     }
+    
+    if (e.key === "Escape") {
+      e.target.value = "";
+      setNovo(false);
+    }
+  };
+
+  const controlaDel = (pos) => {
+    const novasTarefas = [...colunas[coluna.colId].items];
+    
+    novasTarefas.splice(pos, 1);
+
+    despachar(setColunas({
+      ...colunas,
+      [coluna.colId]: {
+        ...colunas[coluna.colId],
+        items: novasTarefas
+      }
+    }));
   };
 
   return (
@@ -72,6 +87,7 @@ const Coluna = (coluna, index) => {
                     key={tarefa.id}
                     tarefa={tarefa}
                     index={index}
+                    onClick={() => {controlaDel(index)}}
                   ></Tarefa>
                 );
               })}
@@ -80,21 +96,21 @@ const Coluna = (coluna, index) => {
                 <NovaTarefa>
                   <NovoNome
                     autoFocus
-                    onKeyPress={controlaTeclas}
-                    //id={`nova-${coluna.colId}`}
+                    onKeyDown={controlaTeclas}
                     placeholder="Nova Tarefa..."
                   />
                 </NovaTarefa>
               ) : null}
 
-              <NovaTarefaBtn onClick={controlaClique}>
-                Adicionar outro cartão
-              </NovaTarefaBtn>
+              
               {provided.placeholder}
             </Area>
           );
         }}
       </Droppable>
+      <NovaTarefaBtn onClick={controlaClique}>
+                <Mais /> Adicionar outro cartão
+              </NovaTarefaBtn>
     </Container>
   );
 };

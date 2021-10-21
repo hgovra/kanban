@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const cores = ["#5CC4FF", "#945AD1", "#59D090", "#ee9a39"];
+import { cores } from "../../themes/globalStyles";
 
 export const Container = styled.div`
   padding: 20px;
@@ -17,7 +17,8 @@ export const Container = styled.div`
   }
 `;
 export const Area = styled.div`
-  /*min-height: 300px;*/
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Nome = styled.h2`
@@ -40,6 +41,33 @@ export const NovaTarefa = styled.div`
     border-radius: 5px;
     margin-top: 10px;
     padding: 15px;
+`;
+export const Mais = styled.div`
+    width: 14px;
+    height: 14px;
+    margin-right: 15px;
+    display: inline-block;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: #FFF;
+        width: 2px;
+        height: 16px;
+        top: 0;
+        left: 7px;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        background: #FFF;
+        width: 16px;
+        height: 2px;
+        top: 7px;
+        left: 0;
+    }
 `;
 export const NovoNome = styled.input`
   padding: 0;

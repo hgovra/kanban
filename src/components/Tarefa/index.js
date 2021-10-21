@@ -1,10 +1,10 @@
 import { Draggable } from "react-beautiful-dnd";
 
-import { Container } from "./style";
+import { Container, Excluir } from "./style";
 
-const Tarefa = (tarefa, index) => {
-    //console.log('cc',tarefa);
-    const dados = tarefa.tarefa;
+const Tarefa = (tarefa) => {
+  const dados = tarefa.tarefa;
+  
   return (
     <Draggable draggableId={dados.id} index={tarefa.index}>
       {(provided, snapshot) => {
@@ -15,6 +15,8 @@ const Tarefa = (tarefa, index) => {
             {...provided.dragHandleProps}
           >
             {tarefa.tarefa.content}
+
+            <Excluir title="Excluir" onClick={tarefa.onClick} />
           </Container>
         );
       }}
