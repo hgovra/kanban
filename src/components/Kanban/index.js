@@ -1,3 +1,9 @@
+/**
+ *  Componente pai do kanban.
+ *  Monta as colunas "salvas" e prepara
+ *  a interface para adicionar novas.
+ */
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -18,14 +24,14 @@ import {
   NovaColuna,
   PickerContainer,
   NovoIconeColuna,
-  PickerBG,
+  ModalBG,
 } from "./style";
 
 import Coluna from "../Coluna";
 
 import { setColunas } from "../../reducers/modules/quadro";
 
-const tradPicker = {
+const traducaoPicker = {
   search: "Buscar",
   clear: "Apagar",
   notfound: "Nenhum resultado",
@@ -33,7 +39,7 @@ const tradPicker = {
     search: "Resultados da Busca",
     recent: "Frequentemente Usados",
     smileys: "Smileys e Emoções",
-    people: "Pessoas e Corpo",
+    people: "Emojis e Pessoas",
     nature: "Animais e Natureza",
     foods: "Comida e Bebida",
     activity: "Actividade",
@@ -43,32 +49,38 @@ const tradPicker = {
     flags: "Bandeiras",
     custom: "Personalizado",
   },
-  categorieslabel: "Categorias"
+  categorieslabel: "Categorias",
 };
 
-function Kanban() {
+const Kanban = () => {
   const despachar = useDispatch();
-  const [novo, setNovo] = useState(false);
+
+  // Estado para função de adicionar colunas.
+  const [novaCol, setNovaCol] = useState(false);
+
+  // Estado para função de mudar o ícone das colunas.
   const [selIcone, setSelIcone] = useState({
     ativo: false,
-    coluna: undefined
+    coluna: undefined,
   });
+
+  // Estado para posicionar caixa de seleção de ícones.
   const [posPick, setPosPick] = useState(0);
-  const { colunas } = useSelector((state) => state.quadro);
 
-  const colsN = Object.getOwnPropertyNames(colunas);
+  // Dados das colunas.
+  const { colunas } = useSelector(state => state.quadro);
 
-  const controlaClique = () => {
-    setNovo(true);
-  };
+  // Salvar a nova coluna.
+  const salvarNovaColuna = e => {
+    const texto = e.target.value;
+    let ativo = true;
 
-  const controlaTeclas = (e) => {
-    if (e.key === "Enter") {
+    if (texto) {
       const dadosNovaColuna = {
-        icone: "📝",
-        nome: e.target.value,
-        cor: colsN.length % 4,
-        items: [],
+        icone: "📑",
+        nome: texto,
+        cor: Object.getOwnPropertyNames(colunas).length % 4,
+        tarefas: [],
       };
 
       despachar(
@@ -79,86 +91,115 @@ function Kanban() {
       );
 
       e.target.value = "";
-      setNovo(false);
-    }
+      setNovaCol(false);
+    } else {
+      // É obrigatório digitar um nome para a nova coluna.
+      if (ativo) {
+        alert("Insira um nome para a nova coluna e pressione Enter.");
+        ativo = false;
+      }
 
-    if (e.key === "Escape") {
-      e.target.value = "";
-      setNovo(false);
+      setTimeout(() => {
+        e.target.focus();
+      }, 10);
     }
   };
 
-  const onDragEnd = (result, colunas, setColunas) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
+  // Ajustando o teclado para editar o nome da nova coluna.
+  const controlaTeclas = e => {
+    // Enter = Salva
+    if (e.key === "Enter") {
+      salvarNovaColuna(e);
+    }
 
+    // Esc = Aborta
+    if (e.key === "Escape") {
+      e.target.value = "";
+      setNovaCol(false);
+    }
+  };
+
+  // Salvar a posição das tarefas após arrastar e soltar.
+  const soltarTarefa = retorno => {
+    // Fora do componente (não fazer nada).
+    if (!retorno.destination) return;
+
+    const { source, destination } = retorno;
+
+    // Tarefa mudou para outra coluna.
     if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = colunas[source.droppableId];
-      const destColumn = colunas[destination.droppableId];
+      const colOrigem = colunas[source.droppableId];
+      const colDestino = colunas[destination.droppableId];
+      const tarefasOrigem = [...colOrigem.tarefas];
+      const tarefasDestino = [...colDestino.tarefas];
 
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
+      const [removed] = tarefasOrigem.splice(source.index, 1);
+      tarefasDestino.splice(destination.index, 0, removed);
 
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
       despachar(
         setColunas({
           ...colunas,
           [source.droppableId]: {
-            ...sourceColumn,
-            items: sourceItems,
+            ...colOrigem,
+            tarefas: tarefasOrigem,
           },
           [destination.droppableId]: {
-            ...destColumn,
-            items: destItems,
+            ...colDestino,
+            tarefas: tarefasDestino,
           },
         })
       );
     } else {
+      // Tarefa continua na mesma coluna.
       const coluna = colunas[source.droppableId];
-      const copiedItems = [...coluna.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
+      const novasTarefas = [...coluna.tarefas];
+
+      const [removed] = novasTarefas.splice(source.index, 1);
+      novasTarefas.splice(destination.index, 0, removed);
+
       despachar(
         setColunas({
           ...colunas,
           [source.droppableId]: {
             ...coluna,
-            items: copiedItems,
+            tarefas: novasTarefas,
           },
         })
       );
     }
   };
 
-  const controlaSelIcone = (e, col, tar) => {
+  // Abrir caixa de seleção de ícone.
+  const controlaSelIcone = (e, col) => {
     setSelIcone({
       ativo: true,
-      coluna: col
+      coluna: col,
     });
 
-    const posPicker = e.target.getBoundingClientRect();console.log(posPicker);
+    // Define a posição da caixa na tela.
+    const posPicker = e.target.getBoundingClientRect();
     setPosPick(posPicker);
   };
 
+  // Salvar o ícone escolhido :D
   const controlaMudaIcone = emoji => {
     const col = colunas[selIcone.coluna];
 
     const novaColuna = {
       ...col,
-      icone: emoji.native
-    }
-    
+      icone: emoji.native,
+    };
+
     despachar(
       setColunas({
         ...colunas,
-        [selIcone.coluna]: novaColuna
+        [selIcone.coluna]: novaColuna,
       })
     );
 
     setSelIcone({
       ativo: false,
-      coluna: undefined
+      coluna: undefined,
     });
   };
 
@@ -166,18 +207,18 @@ function Kanban() {
     <Container>
       <Titulo>Kanban do projeto</Titulo>
 
-      <PickerBG
+      <ModalBG
         className={selIcone.ativo ? "on" : "off"}
         onClick={() => {
           setSelIcone({
             ativo: false,
-            coluna: undefined
+            coluna: undefined,
           });
         }}
-        />      
+      />
 
       <Quadro>
-      <PickerContainer
+        <PickerContainer
           className={selIcone.ativo ? "on" : "off"}
           style={{
             left: `${posPick.left}px`,
@@ -188,34 +229,32 @@ function Kanban() {
             native={true}
             showPreview={false}
             showSkinTones={false}
-            i18n={tradPicker}
+            i18n={traducaoPicker}
             onSelect={(emoji) => controlaMudaIcone(emoji)}
           />
         </PickerContainer>
 
-        <DragDropContext
-          onDragEnd={(result) => onDragEnd(result, colunas, setColunas)}
-        >
+        <DragDropContext onDragEnd={(retorno) => soltarTarefa(retorno)}>
           {Object.entries(colunas).map((coluna, index) => {
             return (
               <Coluna
-                colId={coluna[0]}
-                coluna={coluna[1]}
                 key={`col-${index}`}
                 index={index}
-                colIconeClick={controlaSelIcone}
-                colIconeSel={controlaMudaIcone}
+                codigo={coluna[0]}
+                dados={coluna[1]}
+                picker={controlaSelIcone}
               ></Coluna>
             );
           })}
         </DragDropContext>
 
-        {novo ? (
-          <NovaColuna cor={(colsN.length % 4).toString()}>
-            <NovoIconeColuna>📝</NovoIconeColuna>
+        {novaCol ? (
+          <NovaColuna cor={`${Object.getOwnPropertyNames(colunas).length % 4}`}>
+            <NovoIconeColuna>📑</NovoIconeColuna>
             <NovoNomeColuna
               autoFocus
               onKeyDown={controlaTeclas}
+              onBlur={salvarNovaColuna}
               placeholder="Nova Coluna..."
             />
           </NovaColuna>
@@ -224,7 +263,7 @@ function Kanban() {
         <NovaColunaBtn>
           <NovoNome
             role="textbox"
-            onClick={controlaClique}
+            onClick={() => setNovaCol(true)}
             placeholder="Adicionar outra lista"
           >
             <Mais /> Adicionar outra lista
@@ -233,6 +272,6 @@ function Kanban() {
       </Quadro>
     </Container>
   );
-}
+};
 
 export default Kanban;

@@ -3,7 +3,7 @@
         "icone": "📝",
         "nome": "To Do",
         "cor": 0,
-        "items": [{
+        "tarefas": [{
                 "id": "t01",
                 "nome": "Documentar padrões mobile",
                 "tags": ["To Do", "Tag 1", "Tag 2"]
@@ -29,7 +29,7 @@
         "icone": "💻",
         "nome": "In Progress",
         "cor": 1,
-        "items": [{
+        "tarefas": [{
             "id": "t05",
             "nome": "Wireframe das telas",
             "tags": ["Desenvolvimento"]
@@ -39,7 +39,7 @@
         "icone": "🚀",
         "nome": "Done",
         "cor": 2,
-        "items": [{
+        "tarefas": [{
                 "id": "t06",
                 "nome": "Implementação do blog",
                 "tags": []

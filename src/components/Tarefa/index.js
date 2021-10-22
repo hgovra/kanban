@@ -7,7 +7,7 @@ const Tarefa = (tarefa) => {
 
   return (
     <Draggable draggableId={dados.id} index={tarefa.index}>
-      {(provided, snapshot) => {
+      {provided => {
         return (
           <Container
             ref={provided.innerRef}
@@ -24,7 +24,7 @@ const Tarefa = (tarefa) => {
 
             <Tags
               tags={tarefa.tarefa.tags}
-              onChange={(novasTags) => tarefa.onClickTags(novasTags)}
+              onChange={(novasTags) => tarefa.selTags(novasTags)}
               placeholder="Nova Tag..."
             />
           </Container>

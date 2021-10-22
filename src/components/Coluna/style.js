@@ -45,7 +45,7 @@ export const Nome = styled.h2`
   font-size: 18px;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const NovaTarefaBtn = styled.span`

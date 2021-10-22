@@ -12,7 +12,7 @@ export const Titulo = styled.h1`
   margin-bottom: 60px;
 `;
 
-export const PickerBG = styled.div`
+export const ModalBG = styled.div`
   position: absolute;
   left: 0;
   top: 0;
@@ -20,7 +20,6 @@ export const PickerBG = styled.div`
   height: 100vh;
   z-index: 990;
   background: rgba(0, 0, 0, 0);
-  transition: opacity 200ms;
 
   &.on {
     opacity: 1;
@@ -35,6 +34,7 @@ export const PickerContainer = styled.div`
   position: absolute;
   z-index: 999;
   margin-left: -72px;
+  transition: opacity 500ms;
   
   &.on {
     opacity: 1;

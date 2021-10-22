@@ -1,9 +1,16 @@
-import { createGlobalStyle } from 'styled-components';
+/**
+ *  Definindo os estilos de CSS globais
+ *  para o projeto através do styled-components.
+ *  Aqui também está um array com o HEX das
+ *  cores que vão pras colunas do kanban.
+ */
 
-import bgImg from './img.png';
+import { createGlobalStyle } from "styled-components";
+
+import bgImg from "./img.png";
 
 export const cores = ["#5CC4FF", "#945AD1", "#59D090", "#ee9a39"];
- 
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -28,6 +35,13 @@ const GlobalStyle = createGlobalStyle`
   }
   .coluna-cor-3 .react-tag-input__tag {
     background: ${cores[3]};
+  }
+
+  .emoji-mart button, .emoji-mart-category .emoji-mart-emoji span {
+    cursor: pointer;
+  }
+  .emoji-mart-category .emoji-mart-emoji:hover:before {
+    margin: 2px 0 0 5px;
   }
 `;
 
