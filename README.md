@@ -1,6 +1,6 @@
 # Kanban
 
-App da Kanban (ferramenta de produtividade) em React.
+App de Kanban (ferramenta de produtividade) em React.
 
 Realizado como teste de Desenvolvimento Front-End para [Amopromo](https://gist.github.com/LeonardoMarco/9a9615bd425854fe15e963d5d06c715d).
 
