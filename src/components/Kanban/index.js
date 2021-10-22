@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
-import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart'
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 import {
   Container,
@@ -16,18 +16,44 @@ import {
   NovoNomeColuna,
   Mais,
   NovaColuna,
-  IconeContainer,
+  PickerContainer,
   NovoIconeColuna,
+  PickerBG,
 } from "./style";
 
 import Coluna from "../Coluna";
 
 import { setColunas } from "../../reducers/modules/quadro";
 
-const Kanban = () => {
+const tradPicker = {
+  search: "Buscar",
+  clear: "Apagar",
+  notfound: "Nenhum resultado",
+  categories: {
+    search: "Resultados da Busca",
+    recent: "Frequentemente Usados",
+    smileys: "Smileys e Emoções",
+    people: "Pessoas e Corpo",
+    nature: "Animais e Natureza",
+    foods: "Comida e Bebida",
+    activity: "Actividade",
+    places: "Viagem e Locais",
+    objects: "Objetos",
+    symbols: "Símbolos",
+    flags: "Bandeiras",
+    custom: "Personalizado",
+  },
+  categorieslabel: "Categorias"
+};
+
+function Kanban() {
   const despachar = useDispatch();
   const [novo, setNovo] = useState(false);
-  const [icone, setIcone] = useState(false);
+  const [selIcone, setSelIcone] = useState({
+    ativo: false,
+    coluna: undefined
+  });
+  const [posPick, setPosPick] = useState(0);
   const { colunas } = useSelector((state) => state.quadro);
 
   const colsN = Object.getOwnPropertyNames(colunas);
@@ -55,7 +81,7 @@ const Kanban = () => {
       e.target.value = "";
       setNovo(false);
     }
-    
+
     if (e.key === "Escape") {
       e.target.value = "";
       setNovo(false);
@@ -105,21 +131,68 @@ const Kanban = () => {
     }
   };
 
-  const controlaSelIcone = () => {
-    setIcone(true);
-  }
+  const controlaSelIcone = (e, col, tar) => {
+    setSelIcone({
+      ativo: true,
+      coluna: col
+    });
+
+    const posPicker = e.target.getBoundingClientRect();console.log(posPicker);
+    setPosPick(posPicker);
+  };
+
+  const controlaMudaIcone = emoji => {
+    const col = colunas[selIcone.coluna];
+
+    const novaColuna = {
+      ...col,
+      icone: emoji.native
+    }
+    
+    despachar(
+      setColunas({
+        ...colunas,
+        [selIcone.coluna]: novaColuna
+      })
+    );
+
+    setSelIcone({
+      ativo: false,
+      coluna: undefined
+    });
+  };
 
   return (
     <Container>
       <Titulo>Kanban do projeto</Titulo>
 
-      <IconeContainer>
-        <Picker native={true} showPreview={false} showSkinTones={false} onSelect={emoji => console.log(emoji)} />
-      </IconeContainer>
-
-      
+      <PickerBG
+        className={selIcone.ativo ? "on" : "off"}
+        onClick={() => {
+          setSelIcone({
+            ativo: false,
+            coluna: undefined
+          });
+        }}
+        />      
 
       <Quadro>
+      <PickerContainer
+          className={selIcone.ativo ? "on" : "off"}
+          style={{
+            left: `${posPick.left}px`,
+            top: `${selIcone.ativo ? 50 : -9999}px`,
+          }}
+        >
+          <Picker
+            native={true}
+            showPreview={false}
+            showSkinTones={false}
+            i18n={tradPicker}
+            onSelect={(emoji) => controlaMudaIcone(emoji)}
+          />
+        </PickerContainer>
+
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, colunas, setColunas)}
         >
@@ -131,7 +204,7 @@ const Kanban = () => {
                 key={`col-${index}`}
                 index={index}
                 colIconeClick={controlaSelIcone}
-                colIconeSel={null}
+                colIconeSel={controlaMudaIcone}
               ></Coluna>
             );
           })}
@@ -160,6 +233,6 @@ const Kanban = () => {
       </Quadro>
     </Container>
   );
-};
+}
 
 export default Kanban;

@@ -39,6 +39,7 @@ export const Icone = styled.span`
   height: 20px;
   margin-right: 12px;
   display: inline-block;
+  cursor: pointer;
 `;
 export const Nome = styled.h2`
   font-size: 18px;

@@ -12,10 +12,36 @@ export const Titulo = styled.h1`
   margin-bottom: 60px;
 `;
 
-export const IconeContainer = styled.div`
+export const PickerBG = styled.div`
   position: absolute;
-  margin-top: 40px;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 990;
+  background: rgba(0, 0, 0, 0);
+  transition: opacity 200ms;
+
+  &.on {
+    opacity: 1;
+    display: block;
+  }
+  &.off {
+    opacity: 0;
+    display: none;
+  }
+`;
+export const PickerContainer = styled.div`
+  position: absolute;
   z-index: 999;
+  margin-left: -72px;
+  
+  &.on {
+    opacity: 1;
+  }
+  &.off {
+    opacity: 0;
+  }
 `;
 
 export const Quadro = styled.div`
@@ -23,6 +49,7 @@ export const Quadro = styled.div`
   flex-direction: row;
   gap: 20px;
   align-items: self-start;
+  position: relative;
 `;
 
 export const NovaColuna = styled.div`

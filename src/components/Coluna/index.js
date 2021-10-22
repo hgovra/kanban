@@ -92,22 +92,29 @@ const Coluna = (coluna, index) => {
         ...colunas,
         [coluna.colId]: {
           ...colunas[coluna.colId],
-          items: novasTarefas
+          items: novasTarefas,
         },
       })
     );
-  }
+  };
 
   return (
-    <Container cor={coluna.coluna.cor.toString()} className={`coluna-cor-${coluna.coluna.cor.toString()}`}>
+    <Container
+      cor={coluna.coluna.cor.toString()}
+      className={`coluna-cor-${coluna.coluna.cor.toString()}`}
+    >
       <Droppable droppableId={coluna.colId} index={index}>
         {(provided, snapshot) => {
           return (
             <Area {...provided.droppableProps} ref={provided.innerRef}>
-
-              
               <Nome>
-                <Icone>{coluna.coluna.icone}</Icone>{coluna.coluna.nome}
+                <Icone
+                  title="Escolher Ícone"
+                  onClick={(e) => coluna.colIconeClick(e, coluna.colId)}
+                >
+                  {coluna.coluna.icone}
+                </Icone>
+                {coluna.coluna.nome}
               </Nome>
 
               {tarefas.map((tarefa, index) => {
@@ -120,7 +127,7 @@ const Coluna = (coluna, index) => {
                       controlaDel(e, index);
                     }}
                     onClickTags={(tags) => {
-                      controlaTags(index, tags)
+                      controlaTags(index, tags);
                     }}
                   ></Tarefa>
                 );
