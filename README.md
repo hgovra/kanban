@@ -25,6 +25,12 @@ serve -s build
 - Para adicionar tags, digite o nome e pressione Enter.
 - Para mudar o ícone no topo das colunas, clique e escolha a opção desejada. 😃
 
+## Testes
+
+```
+npm run test
+```
+
 ## Bibliotecas
 
 - React
