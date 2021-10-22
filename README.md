@@ -21,7 +21,8 @@ serve -s build
 ## Recursos
 
 - Arraste e solte para reorganizar os cartões entre as colunas.
-- Para adicionar colunas e/ou tarefas, clique no botão e digite o nome. O novo item será salvo ao pressionar Enter ou clicar fora do campo. Para adicionar tags, digite o nome e pressione Enter.
+- Para adicionar colunas e/ou tarefas, clique no botão e digite o nome. O novo item será salvo ao pressionar Enter ou clicar fora do campo. Esc cancela o processo.
+- Para adicionar tags, digite o nome e pressione Enter.
 - Para mudar o ícone no topo das colunas, clique e escolha a opção desejada. 😃
 
 ## Bibliotecas
