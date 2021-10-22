@@ -12,6 +12,12 @@ export const Titulo = styled.h1`
   margin-bottom: 60px;
 `;
 
+export const IconeContainer = styled.div`
+  position: absolute;
+  margin-top: 40px;
+  z-index: 999;
+`;
+
 export const Quadro = styled.div`
   display: flex;
   flex-direction: row;
@@ -28,6 +34,13 @@ export const NovaColuna = styled.div`
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 275px;
+`;
+export const NovoIconeColuna = styled.span`
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  display: inline-block;
+  font-size: 18px;
 `;
 export const NovoNomeColuna = styled.input`
   padding: 0;

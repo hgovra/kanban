@@ -16,6 +16,19 @@ const GlobalStyle = createGlobalStyle`
     min-height: 97vh;
     color: #212529;
   }
+
+  .coluna-cor-0 .react-tag-input__tag {
+    background: ${cores[0]};
+  }
+  .coluna-cor-1 .react-tag-input__tag {
+    background: ${cores[1]};
+  }
+  .coluna-cor-2 .react-tag-input__tag {
+    background: ${cores[2]};
+  }
+  .coluna-cor-3 .react-tag-input__tag {
+    background: ${cores[3]};
+  }
 `;
 
 export default GlobalStyle;

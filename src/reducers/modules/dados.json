@@ -1,54 +1,57 @@
 {
     "c01": {
-        "nome": "📝 To Do",
+        "icone": "📝",
+        "nome": "To Do",
         "cor": 0,
         "items": [{
                 "id": "t01",
-                "content": "Documentar padrões mobile",
-                "tags": ["Tag 1", "Tags 2"]
+                "nome": "Documentar padrões mobile",
+                "tags": ["To Do", "Tag 1", "Tag 2"]
             },
             {
                 "id": "t02",
-                "content": "Ajustes fluxo de compra",
-                "tags": []
+                "nome": "Ajustes fluxo de compra",
+                "tags": ["To Do"]
             },
             {
                 "id": "t03",
-                "content": "Banners da home",
-                "tags": []
+                "nome": "Banners da home",
+                "tags": ["To Do"]
             },
             {
                 "id": "t04",
-                "content": "Template de e-mail marketing",
-                "tags": []
+                "nome": "Template de e-mail marketing",
+                "tags": ["To Do"]
             }
         ]
     },
     "c02": {
-        "nome": "💻 In Progress",
+        "icone": "💻",
+        "nome": "In Progress",
         "cor": 1,
         "items": [{
             "id": "t05",
-            "content": "Wireframe das telas",
-            "tags": []
+            "nome": "Wireframe das telas",
+            "tags": ["Desenvolvimento"]
         }]
     },
     "c03": {
-        "nome": "🚀 Done",
+        "icone": "🚀",
+        "nome": "Done",
         "cor": 2,
         "items": [{
                 "id": "t06",
-                "content": "Implementação do blog",
+                "nome": "Implementação do blog",
                 "tags": []
             },
             {
                 "id": "t07",
-                "content": "Análise de métricas",
+                "nome": "Análise de métricas",
                 "tags": []
             },
             {
                 "id": "t08",
-                "content": "UX Review",
+                "nome": "UX Review",
                 "tags": []
             }
         ]

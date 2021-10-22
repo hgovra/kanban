@@ -1,10 +1,10 @@
 import { Draggable } from "react-beautiful-dnd";
 
-import { Container, Excluir } from "./style";
+import { Container, Excluir, Nome, Tags } from "./style";
 
 const Tarefa = (tarefa) => {
   const dados = tarefa.tarefa;
-  
+
   return (
     <Draggable draggableId={dados.id} index={tarefa.index}>
       {(provided, snapshot) => {
@@ -14,9 +14,19 @@ const Tarefa = (tarefa) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            {tarefa.tarefa.content}
+            <Nome>{tarefa.tarefa.nome}</Nome>
 
-            <Excluir title="Excluir" onClick={tarefa.onClick} />
+            <Excluir
+              className="excluir-btn"
+              title="Excluir"
+              onClick={tarefa.onClickExcluir}
+            />
+
+            <Tags
+              tags={tarefa.tarefa.tags}
+              onChange={(novasTags) => tarefa.onClickTags(novasTags)}
+              placeholder="Nova Tag..."
+            />
           </Container>
         );
       }}

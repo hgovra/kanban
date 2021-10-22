@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
+
 import {
   Container,
   Quadro,
@@ -13,6 +16,8 @@ import {
   NovoNomeColuna,
   Mais,
   NovaColuna,
+  IconeContainer,
+  NovoIconeColuna,
 } from "./style";
 
 import Coluna from "../Coluna";
@@ -22,6 +27,7 @@ import { setColunas } from "../../reducers/modules/quadro";
 const Kanban = () => {
   const despachar = useDispatch();
   const [novo, setNovo] = useState(false);
+  const [icone, setIcone] = useState(false);
   const { colunas } = useSelector((state) => state.quadro);
 
   const colsN = Object.getOwnPropertyNames(colunas);
@@ -33,6 +39,7 @@ const Kanban = () => {
   const controlaTeclas = (e) => {
     if (e.key === "Enter") {
       const dadosNovaColuna = {
+        icone: "📝",
         nome: e.target.value,
         cor: colsN.length % 4,
         items: [],
@@ -98,9 +105,19 @@ const Kanban = () => {
     }
   };
 
+  const controlaSelIcone = () => {
+    setIcone(true);
+  }
+
   return (
     <Container>
       <Titulo>Kanban do projeto</Titulo>
+
+      <IconeContainer>
+        <Picker native={true} showPreview={false} showSkinTones={false} onSelect={emoji => console.log(emoji)} />
+      </IconeContainer>
+
+      
 
       <Quadro>
         <DragDropContext
@@ -113,6 +130,8 @@ const Kanban = () => {
                 coluna={coluna[1]}
                 key={`col-${index}`}
                 index={index}
+                colIconeClick={controlaSelIcone}
+                colIconeSel={null}
               ></Coluna>
             );
           })}
@@ -120,6 +139,7 @@ const Kanban = () => {
 
         {novo ? (
           <NovaColuna cor={(colsN.length % 4).toString()}>
+            <NovoIconeColuna>📝</NovoIconeColuna>
             <NovoNomeColuna
               autoFocus
               onKeyDown={controlaTeclas}
@@ -132,9 +152,6 @@ const Kanban = () => {
           <NovoNome
             role="textbox"
             onClick={controlaClique}
-            //value={value}
-            //onKeyPress={controlaTeclas}
-            //onChange={handleChange}
             placeholder="Adicionar outra lista"
           >
             <Mais /> Adicionar outra lista

@@ -34,6 +34,12 @@ export const Area = styled.div`
   flex-direction: column;
 `;
 
+export const Icone = styled.span`
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  display: inline-block;
+`;
 export const Nome = styled.h2`
   font-size: 18px;
   font-weight: 800;
@@ -109,6 +115,6 @@ export const NovoNome = styled.input`
   }
 
   ::placeholder {
-    color: #ccc;
+    color: #CCC;
   }
 `;
