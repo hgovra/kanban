@@ -8,8 +8,30 @@ export const Container = styled.div`
     padding: 15px;
 
     &:hover > div {
+        animation: fadein 100ms linear forwards;
+    }
+
+    &.excluida {
+        animation: fadeout 200ms linear forwards;
+    }
+
+    @keyframes fadein {
+        0% {
+        opacity: 0;
+        }
+        100% {
         opacity: 1;
-    } 
+        }
+    }
+
+    @keyframes fadeout {
+        0% {
+        opacity: 1;
+        }
+        100% {
+        opacity: 0;
+        }
+    }
 `;
 
 export const Excluir = styled.div`

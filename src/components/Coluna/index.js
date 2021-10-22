@@ -23,6 +23,7 @@ const Coluna = (coluna, index) => {
   const despachar = useDispatch();
   const tarefas = coluna.coluna.items;
   const [novo, setNovo] = useState(false);
+  //const [isFadingOut, setIsFadingOut] = useState(false);
   const { colunas } = useSelector(
     (state) => state.quadro
   );
@@ -36,7 +37,8 @@ const Coluna = (coluna, index) => {
       const novasTarefas = [...colunas[coluna.colId].items];
       const dadosNovaTarefa = {
         id: uuidv4(),
-        content: e.target.value
+        content: e.target.value,
+        tags: []
       };
 
       novasTarefas.splice(novasTarefas.length, 0, dadosNovaTarefa);
@@ -59,18 +61,22 @@ const Coluna = (coluna, index) => {
     }
   };
 
-  const controlaDel = (pos) => {
+  const controlaDel = (e, pos) => {
     const novasTarefas = [...colunas[coluna.colId].items];
     
+    e.target.parentNode.className = `${e.target.parentNode.className} excluida`;
+
     novasTarefas.splice(pos, 1);
 
-    despachar(setColunas({
-      ...colunas,
-      [coluna.colId]: {
-        ...colunas[coluna.colId],
-        items: novasTarefas
-      }
-    }));
+    setTimeout(() => {
+      despachar(setColunas({
+        ...colunas,
+        [coluna.colId]: {
+          ...colunas[coluna.colId],
+          items: novasTarefas
+        }
+      }));
+    }, 201);
   };
 
   return (
@@ -87,7 +93,7 @@ const Coluna = (coluna, index) => {
                     key={tarefa.id}
                     tarefa={tarefa}
                     index={index}
-                    onClick={() => {controlaDel(index)}}
+                    onClick={(e) => {controlaDel(e, index)}}
                   ></Tarefa>
                 );
               })}

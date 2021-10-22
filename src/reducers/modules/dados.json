@@ -4,19 +4,23 @@
         "cor": 0,
         "items": [{
                 "id": "t01",
-                "content": "Documentar padrões mobile"
+                "content": "Documentar padrões mobile",
+                "tags": ["Tag 1", "Tags 2"]
             },
             {
                 "id": "t02",
-                "content": "Ajustes fluxo de compra"
+                "content": "Ajustes fluxo de compra",
+                "tags": []
             },
             {
                 "id": "t03",
-                "content": "Banners da home"
+                "content": "Banners da home",
+                "tags": []
             },
             {
                 "id": "t04",
-                "content": "Template de e-mail marketing"
+                "content": "Template de e-mail marketing",
+                "tags": []
             }
         ]
     },
@@ -25,7 +29,8 @@
         "cor": 1,
         "items": [{
             "id": "t05",
-            "content": "Wireframe das telas"
+            "content": "Wireframe das telas",
+            "tags": []
         }]
     },
     "c03": {
@@ -33,15 +38,18 @@
         "cor": 2,
         "items": [{
                 "id": "t06",
-                "content": "Implementação do blog"
+                "content": "Implementação do blog",
+                "tags": []
             },
             {
                 "id": "t07",
-                "content": "Análise de métricas"
+                "content": "Análise de métricas",
+                "tags": []
             },
             {
                 "id": "t08",
-                "content": "UX Review"
+                "content": "UX Review",
+                "tags": []
             }
         ]
     }

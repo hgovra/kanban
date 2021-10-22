@@ -15,6 +15,19 @@ export const Container = styled.div`
   &:first-of-type {
     margin-left: 0;
   }
+
+  &.excluida {
+    animation: fadeout 200ms linear forwards;
+  }
+
+  @keyframes fadeout {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 export const Area = styled.div`
   display: flex;
@@ -30,44 +43,55 @@ export const Nome = styled.h2`
 
 export const NovaTarefaBtn = styled.span`
   display: block;
-  color: #FFF;
+  color: #fff;
   margin-top: 20px;
   cursor: pointer;
 `;
 
 export const NovaTarefa = styled.div`
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    background: #FFF;
-    border-radius: 5px;
-    margin-top: 10px;
-    padding: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 15px;
+  opacity: 1;
+  animation: fadein 200ms linear forwards;
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 export const Mais = styled.div`
-    width: 14px;
-    height: 14px;
-    margin-right: 15px;
-    display: inline-block;
-    position: relative;
+  width: 14px;
+  height: 14px;
+  margin-right: 15px;
+  display: inline-block;
+  position: relative;
 
-    &::before {
-        content: "";
-        position: absolute;
-        background: #FFF;
-        width: 2px;
-        height: 16px;
-        top: 0;
-        left: 7px;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    background: #fff;
+    width: 2px;
+    height: 16px;
+    top: 0;
+    left: 7px;
+  }
 
-    &::after {
-        content: "";
-        position: absolute;
-        background: #FFF;
-        width: 16px;
-        height: 2px;
-        top: 7px;
-        left: 0;
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    background: #fff;
+    width: 16px;
+    height: 2px;
+    top: 7px;
+    left: 0;
+  }
 `;
 export const NovoNome = styled.input`
   padding: 0;
@@ -85,6 +109,6 @@ export const NovoNome = styled.input`
   }
 
   ::placeholder {
-    color: #CCC;
+    color: #ccc;
   }
 `;
