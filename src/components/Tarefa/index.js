@@ -1,30 +1,35 @@
+/**
+ *  Componente que cria os cartões de tarefas.
+ *  Nada de especial aqui.
+ */
+
 import { Draggable } from "react-beautiful-dnd";
 
 import { Container, Excluir, Nome, Tags } from "./style";
 
-const Tarefa = (tarefa) => {
-  const dados = tarefa.tarefa;
+const Tarefa = (props) => {
+  const { index, tarefa, deletar, selTags } = props;
 
   return (
-    <Draggable draggableId={dados.id} index={tarefa.index}>
-      {provided => {
+    <Draggable draggableId={tarefa.id} index={index}>
+      {(provided) => {
         return (
           <Container
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <Nome>{tarefa.tarefa.nome}</Nome>
+            <Nome>{tarefa.nome}</Nome>
 
             <Excluir
               className="excluir-btn"
               title="Excluir"
-              onClick={tarefa.onClickExcluir}
+              onClick={deletar}
             />
 
             <Tags
-              tags={tarefa.tarefa.tags}
-              onChange={(novasTags) => tarefa.selTags(novasTags)}
+              tags={tarefa.tags}
+              onChange={(novasTags) => selTags(novasTags)}
               placeholder="Nova Tag..."
             />
           </Container>

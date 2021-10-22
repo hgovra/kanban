@@ -101,7 +101,7 @@ const Coluna = (props) => {
   const controlaDel = (e, index) => {
     const novasTarefas = tarefas;
 
-    // Fade Out (apenas visual)
+    // Fade Out (efeito visual)
     e.target.parentNode.className = `${e.target.parentNode.className} excluida`;
 
     novasTarefas.splice(index, 1);
@@ -110,8 +110,8 @@ const Coluna = (props) => {
       despachar(
         setColunas({
           ...colunas,
-          [index]: {
-            ...colunas[index],
+          [codigo]: {
+            ...colunas[codigo],
             tarefas: novasTarefas,
           },
         })
@@ -193,6 +193,7 @@ const Coluna = (props) => {
           );
         }}
       </Droppable>
+
       <NovaTarefaBtn
         onClick={() => {
           setNovaTar(true);

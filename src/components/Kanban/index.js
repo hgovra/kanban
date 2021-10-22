@@ -68,10 +68,10 @@ const Kanban = () => {
   const [posPick, setPosPick] = useState(0);
 
   // Dados das colunas.
-  const { colunas } = useSelector(state => state.quadro);
+  const { colunas } = useSelector((state) => state.quadro);
 
   // Salvar a nova coluna.
-  const salvarNovaColuna = e => {
+  const salvarNovaColuna = (e) => {
     const texto = e.target.value;
     let ativo = true;
 
@@ -106,7 +106,7 @@ const Kanban = () => {
   };
 
   // Ajustando o teclado para editar o nome da nova coluna.
-  const controlaTeclas = e => {
+  const controlaTeclas = (e) => {
     // Enter = Salva
     if (e.key === "Enter") {
       salvarNovaColuna(e);
@@ -120,7 +120,7 @@ const Kanban = () => {
   };
 
   // Salvar a posição das tarefas após arrastar e soltar.
-  const soltarTarefa = retorno => {
+  const soltarTarefa = (retorno) => {
     // Fora do componente (não fazer nada).
     if (!retorno.destination) return;
 
@@ -182,7 +182,7 @@ const Kanban = () => {
   };
 
   // Salvar o ícone escolhido :D
-  const controlaMudaIcone = emoji => {
+  const controlaMudaIcone = (emoji) => {
     const col = colunas[selIcone.coluna];
 
     const novaColuna = {
