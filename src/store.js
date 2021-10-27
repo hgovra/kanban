@@ -4,4 +4,7 @@ import reducer from './reducers';
 
 const store = createStore(reducer);
 
+// Habilitar Redux DevTools
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
 export default store;
